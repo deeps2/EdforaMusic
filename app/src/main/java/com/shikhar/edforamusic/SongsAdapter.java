@@ -80,16 +80,31 @@ public class SongsAdapter extends ArrayAdapter<Music> {
                     }
                     nowPlaying = playPause;
 
-                    pauseSong(playingSongUrl);
+                   // pauseSong(playingSongUrl);
+                    Intent intent0 = new Intent(mContext,SongIntentService.class);
+                    intent0.putExtra("PLAYING_SONG_URL",playingSongUrl);
+                    intent0.putExtra("MODE","pauseSong");
+                    mContext.startService(intent0);
+
                     playingSongUrl = getItem(position).getUrl();
-                    playSong(playingSongUrl, getItem(position).getSong());
+
+                    //playSong(playingSongUrl, getItem(position).getSong());
+                    Intent intent = new Intent(mContext,SongIntentService.class);
+                    intent.putExtra("PLAYING_SONG_URL",playingSongUrl);//start
+                    intent.putExtra("SONG",getItem(position).getSong());
+                    intent.putExtra("MODE","playSong");
+                    mContext.startService(intent);
 
                 } else {
                     playPause.setImageResource(R.drawable.play_button);
                     playPause.setTag(R.drawable.play_button);
                     pos = position;
                     nowPlaying = null;
-                    pauseSong(playingSongUrl);
+                    //pauseSong(playingSongUrl);
+                   Intent intent = new Intent(mContext,SongIntentService.class);
+                    intent.putExtra("PLAYING_SONG_URL",playingSongUrl);
+                   intent.putExtra("MODE","pauseSong");
+                   mContext.startService(intent);
                 }
             }
         });
@@ -123,6 +138,7 @@ public class SongsAdapter extends ArrayAdapter<Music> {
                 //Intent intent = new Intent(mContext, SongIntentService.class);
                 //intent.putExtra("mediaplayer",mediaPlayer);
                 //mContext.startService(intent)
+                //OLD ONE NOT NEEDED
 
                 mediaPlayer.start();
                 bufferingToast.cancel();

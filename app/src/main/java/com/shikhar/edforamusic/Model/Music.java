@@ -3,6 +3,7 @@ package com.shikhar.edforamusic.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+//Model class to save Songs Information by parsing JSON data using Retrofit2 library
 public class Music {
 
     @SerializedName("song")

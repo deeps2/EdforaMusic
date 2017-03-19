@@ -1,6 +1,5 @@
 package com.shikhar.edforamusic;
 
-
 import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -39,9 +38,9 @@ public class SongIntentService extends Service {
 
             if (mode.equals("playSong")) {
                 playingSongUrl = url;
-                playSong(url, song);
+                playSong(url, song);// play the song
             } else {
-                pauseSong(playingSongUrl);
+                pauseSong(playingSongUrl);// pause or stop the song
             }
         }
 
@@ -73,8 +72,7 @@ public class SongIntentService extends Service {
         });
 
     }
-
-
+    
     public void playSong(String url, final String songName) {
 
         try {
@@ -90,19 +88,20 @@ public class SongIntentService extends Service {
 
             }
 
+            //create media player instance and start it
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setDataSource(url);
-            mediaPlayer.prepareAsync(); // might take long! (for buffering, etc)
+            mediaPlayer.prepareAsync(); // might take long! (for buffering, etc) so start it on a separate thread
             showBufferingToastText(songName);
 
         } catch (IOException e) {
             Log.e("Adapter", e.getMessage());
         }
 
-
+        //when prepareAsync() got completed
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
+            @Override //if mediaplayer is prepared, then start it and display the toast
             public void onPrepared(MediaPlayer mediaPlayer) {
 
                 mediaPlayer.start();

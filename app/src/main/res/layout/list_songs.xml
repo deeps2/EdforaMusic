@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="horizontal"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/cover_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop">
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:paddingLeft="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/song_name"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="SongName"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#000000"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/artists"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Imagine Dragon"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-light" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/play_pause"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/play_button"
+        android:contentDescription="@null"
+        android:layout_weight="0">
+    </ImageView>
+
+</LinearLayout>

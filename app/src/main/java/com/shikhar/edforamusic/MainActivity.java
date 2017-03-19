@@ -2,6 +2,7 @@ package com.shikhar.edforamusic;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 
 import com.shikhar.edforamusic.Model.Music;
 
@@ -19,12 +20,18 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String BASE_URL = "http://starlord.hackerearth.com/";
 
-    List<Music> SongsList = new ArrayList<>();
+    ListView mSongListView;
+    SongsAdapter mSongsAdapter;
+
+    List<Music> mSongsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSongListView = (ListView) findViewById(R.id.list_view);
+        mSongsAdapter = new SongsAdapter(this);
 
         callWebService();
     }
@@ -52,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Music>> call, Response<List<Music>> response) {
 
 
-                SongsList = response.body();
-                
+                mSongsList = response.body();
+
+
             }
 
             @Override

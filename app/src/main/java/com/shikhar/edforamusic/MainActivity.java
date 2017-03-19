@@ -1,5 +1,6 @@
 package com.shikhar.edforamusic;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //open new activity and start service
-                int x = 0;
+                //Intent intent = new Intent(MainActivity.this);
+                //startActivity(PlayActivity);
             }
         });
 

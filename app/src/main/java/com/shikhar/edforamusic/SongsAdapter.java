@@ -2,7 +2,9 @@ package com.shikhar.edforamusic;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,21 +21,35 @@ import com.shikhar.edforamusic.Model.Music;
 import java.io.IOException;
 
 import static android.R.attr.start;
+import static android.content.Context.MODE_PRIVATE;
 
 public class SongsAdapter extends ArrayAdapter<Music> {
 
     private Context mContext;
     private ImageView nowPlaying;
-    private int pos;
+    private int pos = -1;
     private Toast bufferingToast;
     private Toast nowPlayingToast;
     private String playingSongUrl;
     private MediaPlayer mediaPlayer;
+    private ImageView lastPlaying;
 
     public SongsAdapter(Context context) {
         super(context, -1);
 
         this.mContext = context;
+    }
+
+    public int getButtonState(){
+
+        if(nowPlaying != null)
+            return (int)nowPlaying.getTag();
+        else
+            return -1;
+    }
+
+    public int getPos(){
+        return pos;
     }
 
     @Override
@@ -57,8 +73,20 @@ public class SongsAdapter extends ArrayAdapter<Music> {
         if (song.getArtists() != null)
             artists.setText(song.getArtists());
 
-        playPause.setImageResource(R.drawable.play_button);
-        playPause.setTag(R.drawable.play_button);
+        final SharedPreferences prefs = mContext.getSharedPreferences("BUTTON_STATE", MODE_PRIVATE);
+        int restoredDrawableId = prefs.getInt("DRAWABLE_ID", -1);
+        int restoredPosition = prefs.getInt("POSITION", -1);
+        if (restoredPosition != -1 && restoredPosition == position) {
+            playPause.setImageResource(restoredDrawableId);
+            playPause.setTag(restoredDrawableId);
+            lastPlaying = playPause;
+           // prefs.edit().clear();
+           // prefs.edit().commit();
+
+        }else {
+            playPause.setImageResource(R.drawable.play_button);
+            playPause.setTag(R.drawable.play_button);
+        }
 
         if (nowPlaying != null && position == pos) {
             playPause.setImageResource(R.drawable.pause_button);
@@ -72,6 +100,15 @@ public class SongsAdapter extends ArrayAdapter<Music> {
                 if ((int) view.getTag() == R.drawable.play_button) {
                     playPause.setImageResource(R.drawable.pause_button);
                     playPause.setTag(R.drawable.pause_button);
+
+                    if(lastPlaying != null){
+                        lastPlaying.setImageResource(R.drawable.play_button);
+                        lastPlaying.setTag(R.drawable.play_button);
+                        prefs.edit().clear();
+                        prefs.edit().commit();
+                        lastPlaying = null;
+                    }
+
                     pos = position;
 
                     if (nowPlaying != null) {

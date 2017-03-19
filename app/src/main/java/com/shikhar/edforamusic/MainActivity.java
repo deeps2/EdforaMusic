@@ -1,6 +1,7 @@
 package com.shikhar.edforamusic;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -83,5 +84,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStop() {
+
+        SharedPreferences.Editor buttonState = getSharedPreferences("BUTTON_STATE", MODE_PRIVATE).edit();
+
+        buttonState.putInt("DRAWABLE_ID", mSongsAdapter.getButtonState());
+        buttonState.putInt("POSITION", mSongsAdapter.getPos());
+        buttonState.commit();
+        super.onStop();
     }
 }

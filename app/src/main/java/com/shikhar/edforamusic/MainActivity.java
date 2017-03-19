@@ -2,6 +2,8 @@ package com.shikhar.edforamusic;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.shikhar.edforamusic.Model.Music;
@@ -32,8 +34,19 @@ public class MainActivity extends AppCompatActivity {
 
         mSongListView = (ListView) findViewById(R.id.list_view);
         mSongsAdapter = new SongsAdapter(this);
+        mSongListView.setAdapter(mSongsAdapter);
+        mSongListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //open new activity and start service
+                int x = 0;
+            }
+        });
+
 
         callWebService();
+
+
     }
 
     //Retrofit Interface
@@ -58,10 +71,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Music>> call, Response<List<Music>> response) {
 
-
                 mSongsList = response.body();
-
-
+                mSongsAdapter.addAll(mSongsList);
             }
 
             @Override

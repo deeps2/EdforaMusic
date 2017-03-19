@@ -22,32 +22,16 @@ public class Music {
         return song;
     }
 
-    public void setSong(String song) {
-        this.song = song;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getArtists() {
         return artists;
     }
 
-    public void setArtists(String artists) {
-        this.artists = artists;
-    }
-
     public String getCoverImage() {
         return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
     }
 
     public Music(String song, String url, String artists, String coverImage) {
